@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/LODI_Shop/util/introduce.css" />
+  <title>LODI Shop</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+  <!-- ✅ header는 body 안에 있어야 함 -->
+  <header id="header" class="header">
+    <ul>
+      <a href="/LODI_Shop/index.html">
+        <img src="/LODI_Shop/imgs_introduce/logo.png" style="float: left; margin-top: -8px;" />
+      </a>
+      <li><a href="#home">홈</a></li>
+      <li><a href="#intro">회사소개</a></li>
+      <li><a href="#customerService">고객센터</a></li>
+      <li><a href="#marketPrice">시세검색</a></li>
+      <li><a href="#mobile">모바일앱</a></li>
+    </ul>
+  </header>
+
+  <div id="home" class="banner">
+    <div><h1 class="sa sa-up" data-sa-margin="200">당신의 덕질을 위한</h1></div>
+    <div><h1 class="sa sa-up" data-sa-margin="200">중고 거래 플랫폼</h1></div>
+    <div>
+      <button class="customizedBtn btn1" onclick="location.href='/LODI_Shop/market/main.html'">이동</button>
+    </div>
+  </div>
+
+  <!-- 스크롤 애니메이션 스크립트 -->
+  <script>
+    history.scrollRestoration = "manual";
+
+    const saDefaultMargin = 300;
+    let saTriggerMargin = 0;
+    let saTriggerHeight = 0;
+    const saElementList = document.querySelectorAll('.sa');
+
+    const saFunc = function () {
+      for (const element of saElementList) {
+        if (!element.classList.contains('show')) {
+          if (element.dataset.saMargin) {
+            saTriggerMargin = parseInt(element.dataset.saMargin);
+          } else {
+            saTriggerMargin = saDefaultMargin;
+          }
+
+          if (element.dataset.saTrigger) {
+            saTriggerHeight =
+              document.querySelector(element.dataset.saTrigger).getBoundingClientRect().top + saTriggerMargin;
+          } else {
+            saTriggerHeight = element.getBoundingClientRect().top + saTriggerMargin;
+          }
+
+          if (window.innerHeight > saTriggerHeight) {
+            let delay = element.dataset.saDelay ? element.dataset.saDelay : 0;
+            setTimeout(function () {
+              element.classList.add('show');
+            }, delay);
+          }
+        }
+      }
+    };
+    window.addEventListener('load', saFunc);
+    window.addEventListener('scroll', saFunc);
+  </script>
+</body>
+</html>
