@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="util/introduce.css" />
+  <link rel="stylesheet" href="/LODI_Shop/util/introduce.css" />
   <title>LODI Shop</title>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
-  <!-- ✅ header는 body 안에 있어야 함 -->
   <header id="header" class="header">
     <ul>
-      <a href="index.html">
-        <img src="imgs_introduce/logo.PNG" style="float: left; margin-top: -8px;" />
+      <a href="/LODI_Shop/index.html">
+        <img src="/LODI_Shop/imgs_introduce/logo.PNG" style="float: left; margin-top: -8px;" />
       </a>
       <li><a href="#home">홈</a></li>
       <li><a href="#intro">회사소개</a></li>
@@ -43,28 +42,22 @@
     const saFunc = function () {
       for (const element of saElementList) {
         if (!element.classList.contains('show')) {
-          if (element.dataset.saMargin) {
-            saTriggerMargin = parseInt(element.dataset.saMargin);
-          } else {
-            saTriggerMargin = saDefaultMargin;
-          }
+          saTriggerMargin = element.dataset.saMargin ? parseInt(element.dataset.saMargin) : saDefaultMargin;
 
-          if (element.dataset.saTrigger) {
-            saTriggerHeight =
-              document.querySelector(element.dataset.saTrigger).getBoundingClientRect().top + saTriggerMargin;
-          } else {
-            saTriggerHeight = element.getBoundingClientRect().top + saTriggerMargin;
-          }
+          saTriggerHeight = element.dataset.saTrigger
+            ? document.querySelector(element.dataset.saTrigger).getBoundingClientRect().top + saTriggerMargin
+            : element.getBoundingClientRect().top + saTriggerMargin;
 
           if (window.innerHeight > saTriggerHeight) {
             let delay = element.dataset.saDelay ? element.dataset.saDelay : 0;
-            setTimeout(function () {
+            setTimeout(() => {
               element.classList.add('show');
             }, delay);
           }
         }
       }
     };
+
     window.addEventListener('load', saFunc);
     window.addEventListener('scroll', saFunc);
   </script>
